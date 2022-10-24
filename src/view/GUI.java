@@ -1,6 +1,7 @@
 package view;
 
 import magasin.Magasin;
+import monapplication.Client;
 import view.panels.MainPanel;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,8 @@ import java.net.URL;
 
 public class GUI extends JFrame {
 
-    public Magasin magasin;
+    MainPanel mainPanel;
+
 
     public static ImageIcon KAMA_IMG;
     public static ImageIcon TRASHCAN_IMG;
@@ -28,9 +30,8 @@ public class GUI extends JFrame {
     public static Color BACKGROUND_COLOR_2 = Color.decode("#35382f");
     public static Color FONT_COLOR = Color.LIGHT_GRAY;
 
-    public GUI(Magasin magasin){
+    public GUI(Magasin magasin, Client client){
         super("L'Échoppe de Goultard Le Barbare ");
-        this.magasin = magasin;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1450, 900));
         setResizable(false);
@@ -38,6 +39,17 @@ public class GUI extends JFrame {
 
 
 
+        add(new MainPanel(this, magasin, client));
+    }
+
+    public void reload(Magasin updatedMagasin, Client client){
+
+        remove(mainPanel);
+        invalidate();
+        add(new MainPanel(this,updatedMagasin,client));
+        revalidate();
+        repaint();
 
     }
+
 }

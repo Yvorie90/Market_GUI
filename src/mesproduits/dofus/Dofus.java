@@ -38,6 +38,7 @@ public class Dofus  implements Article {
         return image_url;
     }
 
+
     @Override
     public String toString() {
         return "Dofus{" +

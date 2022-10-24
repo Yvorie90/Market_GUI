@@ -1,4 +1,4 @@
-package view.panels;
+package view.panels.panier;
 
 import magasin.Magasin;
 import magasin.exceptions.ClientInconnuException;
@@ -22,7 +22,7 @@ public class ContainerPanierPanel extends MyJPanel {
         panier_label.setPreferredSize(new Dimension(400,40));
         add(panier_label,BorderLayout.NORTH);
 
-        JScrollPane scrollPanierPanel = new JScrollPane(new PanierPanel(magasin));
+        JScrollPane scrollPanierPanel = new JScrollPane(new PanierPanel());
         scrollPanierPanel.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollPanierPanel,BorderLayout.CENTER);
 

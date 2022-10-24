@@ -154,7 +154,7 @@ public class Magasin implements iStock, iClientele, iPanier{
 
         if(!clientele.contains(client)) throw new ClientInconnuException();
 
-        System.out.println(map_client_panier.get(client).listerCommande());
+        //System.out.println(map_client_panier.get(client).listerCommande());
 
         return map_client_panier.get(client).montant();
     }
