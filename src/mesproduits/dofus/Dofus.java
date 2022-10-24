@@ -1,8 +1,9 @@
 package mesproduits.dofus;
 
 import magasin.iArticle;
+import mesproduits.Article;
 
-public class Dofus  implements iArticle{
+public class Dofus  implements Article {
 
     private static int ID = 1;
     int id;

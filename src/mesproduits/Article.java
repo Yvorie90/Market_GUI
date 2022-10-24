@@ -2,19 +2,10 @@ package mesproduits;
 
 import magasin.iArticle;
 
-public class Article implements iArticle {
-    @Override
-    public int reference() {
-        return 0;
-    }
+public interface Article extends iArticle {
 
-    @Override
-    public String nom() {
-        return null;
-    }
+    String image_url();
 
-    @Override
-    public double prix() {
-        return 0;
-    }
+
+
 }

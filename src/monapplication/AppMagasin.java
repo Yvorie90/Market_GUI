@@ -7,6 +7,7 @@ import magasin.exceptions.ClientDejaEnregistreException;
 import magasin.iArticle;
 import mesproduits.dofus.Dofus;
 import mesproduits.dofus.DofusFactory;
+import view.panels.MainPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,59 +18,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AppMagasin extends JFrame {
+public abstract class AppMagasin extends JFrame {
 
     Map card_dofus_map = new HashMap<Integer, ArrayList<JComponent>>();
     //list : stock , spinner , button
     Map card_panier_map = new HashMap<Integer, ArrayList<JComponent>>();
 
-    // VARIABLES GLOBALES
-    public static Color BACKGROUND_COLOR = Color.decode("#292921");
-    public static Color BACKGROUND_COLOR_2 = Color.decode("#35382f");
-    public static Color FONT_COLOR = Color.LIGHT_GRAY;
-    public static ImageIcon KAMA_IMG;
-    static {
-        try {KAMA_IMG = new ImageIcon(ImageIO.read(new URL ("https://media.discordapp.net/attachments/987243695231340554/1032283517352169532/unknown.png?"))
-                .getScaledInstance(20,20,Image.SCALE_DEFAULT));
-        } catch (IOException e) {KAMA_IMG = null;}
-    }
-    public static ImageIcon TRASHCAN_IMG;
-    static {
-        try {TRASHCAN_IMG = new ImageIcon(ImageIO.read(new URL ("https://media.discordapp.net/attachments/987243695231340554/1032535776803700756/clipart1120803.png"))
-                .getScaledInstance(20,20,Image.SCALE_DEFAULT));
-        } catch (IOException e) {TRASHCAN_IMG= null;}
-    }
 
 
-    // PANELS
-    private JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
-    private JPanel shopPanel = new JPanel(new GridLayout(0, 3, 15, 15));
-    private JPanel panierPanel = new JPanel(new GridLayout(0,1,0,10));
+    private MainPanel mainPanel = new MainPanel();
 
 
-    // COMPONENTS
-    private JLabel acceuil_label = new JLabel("Bienvenue à L'Échoppe de Goultard Le Barbare",SwingConstants.CENTER);
-    private JLabel panier_label  = new JLabel("PANIER",SwingConstants.CENTER);
 
-
-    // INIT
     public AppMagasin(Magasin magasin) {
 
 
-        // setup Frame
-        super("L'Échoppe de Goultard Le Barbare ");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(1450, 900));
-        setResizable(false);
-        setIconImage(KAMA_IMG.getImage());
-
-
-        // TOP LABEL
-        acceuil_label.setForeground(FONT_COLOR);
-
-        // SHOP PANEL
-        shopPanel.setBackground(BACKGROUND_COLOR);
-        shopPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 
         // FILLING SHOP
@@ -156,45 +119,7 @@ public class AppMagasin extends JFrame {
             create_panier_card(d);
         }
 
-        // PANIER PANEL
-        JPanel containeur = new JPanel(new BorderLayout());
-        containeur.setPreferredSize(new Dimension(400,400));
-        panierPanel.setBackground(BACKGROUND_COLOR_2);
-        panierPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,5));
-        panier_label.setPreferredSize(new Dimension(400,40));
-        panier_label.setForeground(FONT_COLOR);
-        containeur.setBackground(BACKGROUND_COLOR);
-        containeur.add(panier_label,BorderLayout.NORTH);
-        JScrollPane scrollPanierPanel = new JScrollPane(panierPanel);
-        scrollPanierPanel.getVerticalScrollBar().setUnitIncrement(16);
-        containeur.add(scrollPanierPanel);
 
-        JPanel finalize = new JPanel(new BorderLayout());
-        finalize.setBackground(BACKGROUND_COLOR);
-        finalize.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-        JLabel montant_tot = new JLabel("Montant total :   " + "");
-        montant_tot.setPreferredSize(new Dimension(350,40));
-        montant_tot.setForeground(FONT_COLOR);
-        finalize.add(montant_tot,BorderLayout.WEST);
-        JButton achat = new JButton("Achat");
-        achat.setBackground(BACKGROUND_COLOR_2);
-        achat.setForeground(FONT_COLOR);
-        finalize.add(achat, BorderLayout.EAST);
-        containeur.add(finalize,BorderLayout.SOUTH);
-
-        // MAIN PANEL
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        mainPanel.setBackground(BACKGROUND_COLOR);
-
-
-        JScrollPane scrollShopPanel = new JScrollPane(shopPanel);
-        scrollShopPanel.getVerticalScrollBar().setUnitIncrement(16);
-        mainPanel.add(scrollShopPanel, BorderLayout.CENTER);
-        mainPanel.add(acceuil_label, BorderLayout.NORTH);
-
-        mainPanel.add(containeur,BorderLayout.EAST);
-
-        // ADD MAIN
         add(mainPanel);
 
     }
