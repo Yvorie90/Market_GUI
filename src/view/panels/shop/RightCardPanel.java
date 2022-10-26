@@ -6,12 +6,16 @@ import magasin.exceptions.ClientInconnuException;
 import magasin.exceptions.QuantiteEnStockInsuffisanteException;
 import magasin.exceptions.QuantiteNegativeOuNulleException;
 import magasin.iArticle;
+import mesproduits.Article;
 import monapplication.Client;
 import view.GUI;
 import view.components.MyJButton;
+import view.components.MyJLabel;
 import view.components.MyJPanel;
 import view.components.MyJSpinner;
 import view.panels.MainPanel;
+import view.panels.panier.ContainerPanierPanel;
+import view.panels.panier.PanierPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +26,7 @@ public class RightCardPanel extends MyJPanel {
     MyJSpinner spinner;
 
 
-    public RightCardPanel(Magasin magasin, iArticle article, Client client, GUI gui) {
+    public RightCardPanel(Magasin magasin, iArticle article, Client client) {
         super(new BorderLayout());
 
         setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 20));
@@ -50,7 +54,22 @@ public class RightCardPanel extends MyJPanel {
             //magasin.ajouterAuPanier(magasin.listerLesClientsParId().get(0),magasin.st);
 
             try {
+                //control model
                 magasin.ajouterAuPanier(client,article,(Integer)spinner.getModel().getValue());
+
+                //view
+
+                //-> card -> shop -> ViewPort -> scroll -> main
+                MainPanel main = (MainPanel) getParent().getParent().getParent().getParent().getParent();
+                //System.out.println(getParent().getParent().getParent().getParent().getParent());
+                //main.getComponent(2),getComponent(1);
+                ((PanierPanel) ((JViewport) ((JScrollPane) ((ContainerPanierPanel)main.getComponent(2)).getComponent(1)).getComponent(0)).getComponent(0))
+                        .create_panier_card(magasin,(int)spinner.getModel().getValue(),(Article) article,client);
+
+
+
+                spinner.setModel(new SpinnerNumberModel(0,0,magasin.consulterQuantiteEnStock(article),1));
+                ((LeftCardPanel)getParent().getComponent(1)).reloadStockLabel(magasin,article);
 
             } catch (ClientInconnuException ex) {
                 ex.printStackTrace();
@@ -60,10 +79,6 @@ public class RightCardPanel extends MyJPanel {
             } catch (QuantiteEnStockInsuffisanteException ex) {
                 ex.printStackTrace();
             }
-
-            System.out.println(getParent());
-            //getParent().repaint();
-            gui.reload(magasin,client);
 
 
         });

@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class MainPanel extends MyJPanel {
 
-    public MainPanel(GUI gui, Magasin magasin, Client client) {
+    public MainPanel(Magasin magasin, Client client) {
         super(new BorderLayout(10, 10));
 
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -24,7 +24,7 @@ public class MainPanel extends MyJPanel {
         add(new MyJLabel("Bienvenue à L'Échoppe de Goultard Le Barbare"),BorderLayout.NORTH);
 
 
-        JScrollPane scrollShopPanel = new JScrollPane(new ShopPanel(gui,magasin,client));
+        JScrollPane scrollShopPanel = new JScrollPane(new ShopPanel(magasin,client));
         scrollShopPanel.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollShopPanel,BorderLayout.CENTER);
 

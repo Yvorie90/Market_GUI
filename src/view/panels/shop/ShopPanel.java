@@ -6,6 +6,9 @@ import mesproduits.Article;
 import monapplication.Client;
 import view.GUI;
 import view.components.MyJPanel;
+import view.panels.MainPanel;
+import view.panels.panier.ContainerPanierPanel;
+import view.panels.panier.PanierPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +20,7 @@ public class ShopPanel extends MyJPanel {
 
     Magasin magasin;
 
-    public ShopPanel(GUI gui, Magasin magasin, Client client) {
+    public ShopPanel(Magasin magasin, Client client) {
         super(new GridLayout(0, 3, 15, 15));
         this.magasin = magasin;
 
@@ -26,17 +29,18 @@ public class ShopPanel extends MyJPanel {
         setOpaque(true);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        populate(magasin.listerArticlesEnStockParNom(), client, gui);
+        populate(magasin.listerArticlesEnStockParNom(), client);
     }
 
 
 
 
-    public void populate(List<iArticle> list, Client client, GUI gui){
+    public void populate(List<iArticle> list, Client client){
         for (iArticle i : list){
             Article a = (Article) i;
 
-            add(new Card(a,magasin,client,gui));
+            add(new Card(a,magasin,client));
+
 
         }
     }

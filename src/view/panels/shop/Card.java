@@ -3,7 +3,6 @@ package view.panels.shop;
 import magasin.Magasin;
 import mesproduits.Article;
 import monapplication.Client;
-import view.GUI;
 import view.components.MyJLabel;
 import view.components.MyJPanel;
 
@@ -21,7 +20,7 @@ public class Card extends MyJPanel {
     public Article article;
 
 
-    public Card(Article article, Magasin magasin, Client client, GUI gui) {
+    public Card(Article article, Magasin magasin, Client client) {
         super(new BorderLayout());
         this.article =article;
         magasin.listerStock();
@@ -42,7 +41,7 @@ public class Card extends MyJPanel {
 
         add(new LeftCardPanel(article,magasin),BorderLayout.WEST);
 
-        add(new RightCardPanel(magasin,article,client,gui), BorderLayout.EAST);
+        add(new RightCardPanel(magasin,article,client), BorderLayout.EAST);
 
 
 

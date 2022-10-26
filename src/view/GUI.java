@@ -39,17 +39,8 @@ public class GUI extends JFrame {
 
 
 
-        add(new MainPanel(this, magasin, client));
+        add(new MainPanel(magasin, client));
     }
 
-    public void reload(Magasin updatedMagasin, Client client){
-
-        remove(mainPanel);
-        invalidate();
-        add(new MainPanel(this,updatedMagasin,client));
-        revalidate();
-        repaint();
-
-    }
 
 }

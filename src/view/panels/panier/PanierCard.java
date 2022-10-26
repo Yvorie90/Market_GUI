@@ -1,6 +1,10 @@
 package view.panels.panier;
 
+import magasin.Magasin;
+import magasin.exceptions.*;
 import mesproduits.Article;
+import monapplication.Client;
+import view.GUI;
 import view.components.MyJButton;
 import view.components.MyJLabel;
 import view.components.MyJPanel;
@@ -11,29 +15,80 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
-import static view.GUI.BACKGROUND_COLOR;
-import static view.GUI.TRASHCAN_IMG;
+import static view.GUI.*;
 
 public class PanierCard extends MyJPanel {
 
-    public PanierCard(Article article) {
+    Article article;
+    int quantite;
+
+    public PanierCard(Magasin magasin, Article article, int quantite, Client client) {
         super(new BorderLayout());
+        this.article = article;
+        this.quantite = quantite;
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        setPreferredSize(new Dimension(400,100));
+        setPreferredSize(new Dimension(300,100));
         setBackground(BACKGROUND_COLOR);
         setOpaque(true);
 
 
+
+        MyJPanel info_panel = new MyJPanel( new BorderLayout());
+        info_panel.add(new MyJLabel(article.nom()),BorderLayout.NORTH);
+        info_panel.add(new MyJLabel("quantité : " + quantite),BorderLayout.SOUTH);
+        add(info_panel,BorderLayout.CENTER);
+
+
+
+
         try {
-            add(new MyJLabel(new ImageIcon(ImageIO.read(new URL(article.image_url())))));
+            add(new MyJLabel(new ImageIcon(ImageIO.read(new URL(article.image_url())))),BorderLayout.WEST);
         } catch (IOException e) {
             add(new MyJLabel("image \n indisponible"),BorderLayout.WEST);
         }
 
 
         MyJButton btn_annuler = new MyJButton(TRASHCAN_IMG);
+        btn_annuler.setBackground(BACKGROUND_COLOR_2);
+        btn_annuler.addActionListener(e -> {
+
+            try {
+
+                // control model
+                magasin.supprimerDuPanier(client,quantite,article);
+
+
+                // view
+
+
+
+
+            } catch (ClientInconnuException ex) {
+                ex.printStackTrace();
+            } catch (QuantiteNegativeOuNulleException ex) {
+                ex.printStackTrace();
+            } catch (QuantiteSuppPanierException ex) {
+                ex.printStackTrace();
+            } catch (ArticleHorsPanierException ex) {
+                ex.printStackTrace();
+            } catch (ArticleHorsStockException ex) {
+                ex.printStackTrace();
+            }
+
+
+        });
+
+
+        MyJPanel contain_btn_annuler = new MyJPanel(new GridLayout());
+        contain_btn_annuler.setPreferredSize(new Dimension(60,30));
+        contain_btn_annuler.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        contain_btn_annuler.add(btn_annuler);
+        add(contain_btn_annuler,BorderLayout.EAST);
+
 
 
 
     }
+
+
 }

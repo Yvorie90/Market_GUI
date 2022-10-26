@@ -34,4 +34,7 @@ public class ContainerPanierPanel extends MyJPanel {
         }
 
     }
+
+    public void bite(){}
+
 }

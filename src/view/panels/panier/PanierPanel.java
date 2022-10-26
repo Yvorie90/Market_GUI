@@ -2,7 +2,9 @@ package view.panels.panier;
 
 import magasin.Magasin;
 import mesproduits.Article;
+import mesproduits.dofus.Dofus;
 import monapplication.Client;
+import view.GUI;
 import view.components.MyJPanel;
 
 import javax.swing.*;
@@ -26,10 +28,13 @@ public class PanierPanel extends MyJPanel {
 
     }
 
-    public void create_panier_card(int quantite, Article art){
+    public void create_panier_card(Magasin magasin, int quantite, Article art, Client client){
 
+        PanierCard panierCard = new PanierCard(magasin, art, quantite, client);
 
-
+        add(panierCard);
+        revalidate();
+        repaint();
 
 
     }
