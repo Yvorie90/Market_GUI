@@ -39,6 +39,13 @@ public class PanierPanel extends MyJPanel {
 
     }
 
+    public void delete_panier_card(PanierCard panierCard){
+
+        remove(panierCard);
+        revalidate();
+        repaint();
+    }
+
 
 
 }

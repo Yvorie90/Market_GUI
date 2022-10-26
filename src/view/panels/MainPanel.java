@@ -14,6 +14,8 @@ import java.awt.*;
 
 public class MainPanel extends MyJPanel {
 
+    ShopPanel shopPanel;
+
     public MainPanel(Magasin magasin, Client client) {
         super(new BorderLayout(10, 10));
 
@@ -24,16 +26,18 @@ public class MainPanel extends MyJPanel {
         add(new MyJLabel("Bienvenue à L'Échoppe de Goultard Le Barbare"),BorderLayout.NORTH);
 
 
-        JScrollPane scrollShopPanel = new JScrollPane(new ShopPanel(magasin,client));
+        shopPanel = new ShopPanel(magasin,client);
+        JScrollPane scrollShopPanel = new JScrollPane(shopPanel);
         scrollShopPanel.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollShopPanel,BorderLayout.CENTER);
 
         add(new ContainerPanierPanel(magasin, client),BorderLayout.EAST);
 
 
+    }
 
-
-
+    public void reload_shop(Magasin magasin){
+        shopPanel.reload_shop(magasin);
     }
 
 

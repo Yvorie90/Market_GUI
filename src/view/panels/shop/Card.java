@@ -1,6 +1,7 @@
 package view.panels.shop;
 
 import magasin.Magasin;
+import magasin.iArticle;
 import mesproduits.Article;
 import monapplication.Client;
 import view.components.MyJLabel;
@@ -18,6 +19,8 @@ import static view.GUI.KAMA_IMG;
 public class Card extends MyJPanel {
 
     public Article article;
+    LeftCardPanel leftCardPanel;
+    RightCardPanel rightCardPanel;
 
 
     public Card(Article article, Magasin magasin, Client client) {
@@ -39,9 +42,11 @@ public class Card extends MyJPanel {
         add(img_item,BorderLayout.CENTER);
 
 
-        add(new LeftCardPanel(article,magasin),BorderLayout.WEST);
+        leftCardPanel = new LeftCardPanel(article,magasin);
+        add(leftCardPanel,BorderLayout.WEST);
 
-        add(new RightCardPanel(magasin,article,client), BorderLayout.EAST);
+        rightCardPanel = new RightCardPanel(magasin,article,client);
+        add(rightCardPanel, BorderLayout.EAST);
 
 
 
@@ -57,8 +62,13 @@ public class Card extends MyJPanel {
 
 
 
-
-
-
     }
+
+    public void reload_model_ShopCard(Magasin magasin){
+        leftCardPanel.reload_stockLabel(magasin, article);
+        rightCardPanel.reload_spinner(magasin, article);
+    }
+
+
+
 }

@@ -2,12 +2,14 @@ package view.panels.panier;
 
 import magasin.Magasin;
 import magasin.exceptions.*;
+import magasin.iArticle;
 import mesproduits.Article;
 import monapplication.Client;
 import view.GUI;
 import view.components.MyJButton;
 import view.components.MyJLabel;
 import view.components.MyJPanel;
+import view.panels.MainPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,9 +35,9 @@ public class PanierCard extends MyJPanel {
 
 
 
-        MyJPanel info_panel = new MyJPanel( new BorderLayout());
-        info_panel.add(new MyJLabel(article.nom()),BorderLayout.NORTH);
-        info_panel.add(new MyJLabel("quantité : " + quantite),BorderLayout.SOUTH);
+        MyJPanel info_panel = new MyJPanel( new GridLayout(0,1,0,0));
+        info_panel.add(new MyJLabel(article.nom()));
+        info_panel.add(new MyJLabel("quantité : " + quantite));
         add(info_panel,BorderLayout.CENTER);
 
 
@@ -56,6 +58,14 @@ public class PanierCard extends MyJPanel {
 
                 // control model
                 magasin.supprimerDuPanier(client,quantite,article);
+
+
+                //System.out.println(getParent().getParent().getParent().getParent());
+                ((PurchaseOrderPanel)(getParent().getParent().getParent().getParent()).getComponent(2)).reload_montant(magasin,client);
+                ((MainPanel)getParent().getParent().getParent().getParent().getParent()).reload_shop(magasin);
+
+
+                ((PanierPanel) getParent()).delete_panier_card(this);
 
 
                 // view
@@ -86,9 +96,8 @@ public class PanierCard extends MyJPanel {
         add(contain_btn_annuler,BorderLayout.EAST);
 
 
-
-
     }
+
 
 
 }

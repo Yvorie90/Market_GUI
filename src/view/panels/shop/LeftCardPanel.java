@@ -36,7 +36,7 @@ public class LeftCardPanel extends MyJPanel {
 
     }
 
-    public void reloadStockLabel(Magasin magasin, iArticle article){
+    public void reload_stockLabel(Magasin magasin, iArticle article){
         try {
             int stck = magasin.consulterQuantiteEnStock(article);
             if (stck==0)

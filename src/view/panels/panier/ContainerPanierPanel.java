@@ -26,15 +26,9 @@ public class ContainerPanierPanel extends MyJPanel {
         scrollPanierPanel.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollPanierPanel,BorderLayout.CENTER);
 
-        try {
-            add(new PurchaseOrderPanel(String.valueOf(magasin.consulterMontantPanier(client))),BorderLayout.SOUTH);
-        } catch (ClientInconnuException e) {
-            add(new PurchaseOrderPanel("client invalid"),BorderLayout.SOUTH);
+        add(new PurchaseOrderPanel(magasin, client),BorderLayout.SOUTH);
 
-        }
 
     }
-
-    public void bite(){}
 
 }

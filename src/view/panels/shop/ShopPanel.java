@@ -12,6 +12,7 @@ import view.panels.panier.PanierPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 import static view.GUI.BACKGROUND_COLOR;
@@ -34,14 +35,21 @@ public class ShopPanel extends MyJPanel {
 
 
 
-
     public void populate(List<iArticle> list, Client client){
         for (iArticle i : list){
             Article a = (Article) i;
 
             add(new Card(a,magasin,client));
-
-
         }
     }
+
+    public void reload_shop(Magasin magasin){
+        Arrays.stream(getComponents()).toList().forEach(i -> {
+            Card card = (Card) i;
+            card.reload_model_ShopCard(magasin);
+        });
+
+    }
+
+
 }

@@ -16,6 +16,7 @@ import view.components.MyJSpinner;
 import view.panels.MainPanel;
 import view.panels.panier.ContainerPanierPanel;
 import view.panels.panier.PanierPanel;
+import view.panels.panier.PurchaseOrderPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class RightCardPanel extends MyJPanel {
 
     MyJSpinner spinner;
+    MyJButton  btn_ajout_panier = new MyJButton("Ajouter");
 
 
     public RightCardPanel(Magasin magasin, iArticle article, Client client) {
@@ -32,15 +34,9 @@ public class RightCardPanel extends MyJPanel {
         setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 20));
 
 
-        MyJButton btn_ajout_panier = new MyJButton("Ajouter");
-
-
         try {
             spinner = (new MyJSpinner(new SpinnerNumberModel(0,0,magasin.consulterQuantiteEnStock(article),1)));
-        } catch (ArticleHorsStockException e) {
-            spinner.setEnabled(false);
-            spinner = (new MyJSpinner(new SpinnerNumberModel(0,0,0,1)));
-            btn_ajout_panier.setEnabled(false);
+        } catch (ArticleHorsStockException ignore) {
         }
 
 
@@ -66,10 +62,13 @@ public class RightCardPanel extends MyJPanel {
                 ((PanierPanel) ((JViewport) ((JScrollPane) ((ContainerPanierPanel)main.getComponent(2)).getComponent(1)).getComponent(0)).getComponent(0))
                         .create_panier_card(magasin,(int)spinner.getModel().getValue(),(Article) article,client);
 
+                ((PurchaseOrderPanel)((ContainerPanierPanel)main.getComponent(2)).getComponent(2)).reload_montant(magasin,client);
+
+
 
 
                 spinner.setModel(new SpinnerNumberModel(0,0,magasin.consulterQuantiteEnStock(article),1));
-                ((LeftCardPanel)getParent().getComponent(1)).reloadStockLabel(magasin,article);
+                ((LeftCardPanel)getParent().getComponent(1)).reload_stockLabel(magasin,article);
 
             } catch (ClientInconnuException ex) {
                 ex.printStackTrace();
@@ -86,4 +85,13 @@ public class RightCardPanel extends MyJPanel {
         add(btn_ajout_panier,BorderLayout.SOUTH);
         add(spinner,BorderLayout.NORTH);
     }
+
+    public void reload_spinner(Magasin magasin, iArticle article){
+        try {
+            spinner.setModel(new SpinnerNumberModel(0,0,magasin.consulterQuantiteEnStock(article),1));
+        } catch (ArticleHorsStockException ignore) {
+        }
+    }
+
+
 }
