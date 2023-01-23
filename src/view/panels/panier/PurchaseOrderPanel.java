@@ -40,6 +40,9 @@ public class PurchaseOrderPanel extends MyJPanel {
                 PanierPanel panierPanel = ((PanierPanel)((JViewport)((JScrollPane)((ContainerPanierPanel) getParent()).getComponent(1)).getComponent(0)).getComponent(0));
 
                 Arrays.stream(panierPanel.getComponents()).toList().forEach(i ->{
+                    if (i instanceof JLabel) {
+                        return;
+                    }
                     PanierCard panierCard = (PanierCard) i;
                     panierPanel.delete_panier_card(panierCard);
                 });
